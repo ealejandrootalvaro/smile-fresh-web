@@ -127,7 +127,7 @@
                     Cerrar
                     </button>
 
-                     <button @click="addMedico" class="btn btn-primary black-background white">Aceptar</button>
+                     <button type="button" @click="addMedico" class="btn btn-primary black-background white">Aceptar</button>
                       </div>
             </form>
 
@@ -197,24 +197,12 @@ export default {
                          $('#modal1').modal('hide');
                         
 
-
-
-
                         }else{
                            alert('Verifique los campos de nombre, apellido, ocupacion y genero. Deben ser unicamente letras.');
                            $('#modal1').modal('show');
 
                         }
-
-
-
-
-
-
-
-
-
-                        
+                     
                     }else{
 
                            alert('Verifique los campos de telefono y edad, deben ser numericos.');

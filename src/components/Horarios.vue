@@ -109,7 +109,7 @@
  -->
 
               <div class="form-group">
-                    <label for="nuevaHoraS">Hora de salidas</label>
+                    <label for="nuevaHoraS">Hora de salida</label>
 
 
                     <select class="form-control" v-model="nuevaHoraS">         
@@ -145,7 +145,7 @@
               data-dismiss="modal">
               Cerrar
             </button>
-            <button @click="addMedico" class="btn btn-primary black-background white">
+            <button @click="addHorario" class="btn btn-primary black-background white">
 
               Aceptar
             </button>
@@ -210,7 +210,7 @@ export default {
   },
 
   methods:{
-    addMedico(){
+    addHorario(){
       //alert('adding name');
       this.$store.dispatch('ADD_HORARIO',{doctor: this.doctor, dia: this.dia,inicio: this.nuevaHoraE,fin: this.nuevaHoraS});
       $('#modal1').modal('hide');
