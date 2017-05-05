@@ -55,6 +55,8 @@
               <h5 class="text-left" >Ingrese la siguiente informacion referente al registro de un nuevo horario para un medico.</h5>
 
 
+
+          <label for="doctor">Seleccione un medico </label>
               <form role="form" id="myForm">
                 <div class="form-group">
                   <select class="form-control" name="" v-model="doctor">
@@ -87,17 +89,17 @@
                   <label for="nuevaHoraE">Hora de entrada</label>
 
                   <select class="form-control" v-model="nuevaHoraE">
-                    <option value="8:00 a.m.">8:00 a.m.</option>
-                    <option value="9:00 a.m.">9:00 a.m.</option>
+                    <option value=" 8:00 a.m.">8:00 a.m.</option>
+                    <option value=" 9:00 a.m.">9:00 a.m.</option>
                     <option value="10:00 a.m.">10:00 a.m.</option>
                     <option value="11:00 a.m.">11:00 a.m.</option>
                     <option value="12:00 a.m.">12:00 a.m.</option>
-                    <option value="1:00 p.m.">1:00 p.m.</option>
-                    <option value="2:00 p.m.">2:00 p.m.</option>
-                    <option value="3:00 p.m.">3:00 p.m.</option>
-                    <option value="4:00 p.m.">4:00 p.m.</option>
-                    <option value="5:00 p.m.">5:00 p.m.</option>
-                    <option value="6:00 p.m.">6:00 p.m.</option>
+                    <option value=" 1:00 p.m.">1:00 p.m.</option>
+                    <option value=" 2:00 p.m.">2:00 p.m.</option>
+                    <option value=" 3:00 p.m.">3:00 p.m.</option>
+                    <option value=" 4:00 p.m.">4:00 p.m.</option>
+                    <option value=" 5:00 p.m.">5:00 p.m.</option>
+                    
                   </select>
                 </div>
 
@@ -113,16 +115,16 @@
 
 
                     <select class="form-control" v-model="nuevaHoraS">         
-                    <option value="9:00 a.m.">9:00 a.m.</option>
+                    <option value=" 9:00 a.m.">9:00 a.m.</option>
                     <option value="10:00 a.m.">10:00 a.m.</option>
                     <option value="11:00 a.m.">11:00 a.m.</option>
                     <option value="12:00 a.m.">12:00 a.m.</option>
-                    <option value="1:00 p.m.">1:00 p.m.</option>
-                    <option value="2:00 p.m.">2:00 p.m.</option>
-                    <option value="3:00 p.m.">3:00 p.m.</option>
-                    <option value="4:00 p.m.">4:00 p.m.</option>
-                    <option value="5:00 p.m.">5:00 p.m.</option>
-                    <option value="6:00 p.m.">6:00 p.m.</option>
+                    <option value=" 1:00 p.m.">1:00 p.m.</option>
+                    <option value=" 2:00 p.m.">2:00 p.m.</option>
+                    <option value=" 3:00 p.m.">3:00 p.m.</option>
+                    <option value=" 4:00 p.m.">4:00 p.m.</option>
+                    <option value=" 5:00 p.m.">5:00 p.m.</option>
+                    <option value=" 6:00 p.m.">6:00 p.m.</option>
                   </select>
                 </div>
 
@@ -130,7 +132,11 @@
 
 
 
-                <input type="reset" value="Limpiar Campos" class="btn btn-primary black-background white" >
+               <!--  <input type="reset" value="Limpiar Campos" class="btn btn-primary black-background white" > -->
+                <input type="button" name="clear" value="Limpiar Campos" @click="clearForm(this.myForm)" class="btn btn-primary black-background white">
+
+
+
 
 
               </form>
@@ -145,7 +151,7 @@
               data-dismiss="modal">
               Cerrar
             </button>
-            <button @click="addHorario" class="btn btn-primary black-background white">
+            <button type="button" @click="addHorario" class="btn btn-primary black-background white">
 
               Aceptar
             </button>
@@ -159,12 +165,6 @@
 
   </div>
 </div>
-
-
-
-
-
-
 
 </template>
 
@@ -211,9 +211,74 @@ export default {
 
   methods:{
     addHorario(){
+
+
+       
+      
+           
+
+        if(this.doctor=="" || this.dia=="" || this.nuevaHoraE=="" || this.nuevaHoraS==""){
+
+        alert('Asegurese de hacer  todas las selecciones en los campos del formulario.');
+        $('#modal1').modal('show');
+        }else{
+
+
+
+
+                  if(parseInt(this.nuevaHoraE.substring(0,2))==parseInt(this.nuevaHoraS.substring(0,2))){
+
+
+                        alert('Las Horas de entrada y salida deben ser diferentes.');
+                        $('#modal1').modal('show');
+
+                  }
+                    else{
+
+
+
+                    if(this.nuevaHoraE.charAt(6)=="p"  &&  this.nuevaHoraS.charAt(6)=="a"){
+                        alert('Cambie las horas de entrada y salida. No puede entrar en la tarde y salir en la mañana');
+                        $('#modal1').modal('show');
+
+                    }else{
+
+
+                            if(this.nuevaHoraE.charAt(6)=="a" && this.nuevaHoraS.charAt(6)=="a" && parseInt(this.nuevaHoraS.substring(0,2))<parseInt(this.nuevaHoraE.substring(0,2))){
+
+                                alert('La hora de salida no puede ser menor a la hora de entrada.');
+                                $('#modal1').modal('show');
+
+
+
+                            }else{
+
+                                if(this.nuevaHoraE.charAt(6)=="p" && this.nuevaHoraS.charAt(6)=="p" && parseInt(this.nuevaHoraS.substring(0,2))<parseInt(this.nuevaHoraE.substring(0,2))){
+                                  alert('La hora de salida no puede ser menor a la hora de entrada.');
+                                 $('#modal1').modal('show');
+                                }else{
+                                     this.$store.dispatch('ADD_HORARIO',{doctor: this.doctor, dia: this.dia,inicio: this.nuevaHoraE,fin: this.nuevaHoraS});
+                                      $('#modal1').modal('hide');
+                                }
+
+                            }
+
+                    }
+
+                  }   
+
+        }
       //alert('adding name');
-      this.$store.dispatch('ADD_HORARIO',{doctor: this.doctor, dia: this.dia,inicio: this.nuevaHoraE,fin: this.nuevaHoraS});
-      $('#modal1').modal('hide');
+      
+    },
+    clearForm(elform){
+        var elementosFormu = elform.elements;
+        for(var i=0; i<elementosFormu.length; i++){
+            
+             elementosFormu[i].selectedIndex = -1;
+        }
+
+// code for accessing each element goes here
 
     },
 
