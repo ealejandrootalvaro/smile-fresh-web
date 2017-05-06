@@ -7,7 +7,7 @@ db.serialize(function() {
 });
 
 CITA.insertCita = function(cita){
-  var stmt = db.prerate("INSERT INTO CITA VALUES (?,?,?,?,?,?,?,?)");
+  var stmt = db.prepare("INSERT INTO CITA VALUES (?,?,?,?,?,?,?,?)");
   stmt.run(null,cita.fecha,cita.hora,cita.doctor,cita.paciente,cita.duracion,cita.valor,cita.estado)
   stmt.finalize();
 }
