@@ -32,7 +32,7 @@
 export default {
   data () {
     return {
-       historias:[],
+       listaHistorias:[],
        fecha:'',
        doctor:'',
        paciente:'',
@@ -44,13 +44,14 @@ export default {
   },
 
   computed: {
+            historias(){
+                return this.$store.state.historias
+    }
    
   },
 
  methods:{
-        //listarHistorias(){
 
-    //}
 
   }
 

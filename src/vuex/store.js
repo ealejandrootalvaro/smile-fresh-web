@@ -5,15 +5,28 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const state = {
-
+   pacientes: [
+   {nombre:"camilo",apellido:"melasuda",direcion:"p.sherman,callewallabey 52 sydney", telefono:"555",ocupacion:"doctor, que ironia",nacimiento:"1999-08-12",edad:"18",genero:"F"}
+   ],
+    
   doctores: [],
+  
   consultas:[
     {cedula_paciente:"123",nom_med:"",hallazgos:"",cobro:"", title: "Consulta paciente 123"}
   ],
+ 
   citas:[
-    {cedula_paciente:"123",start:"2017-04-27",nom_med:"",title: "Cita paciente 123"}
+    {fecha:"2017-03-27",hora:"7:49:00",doctor:"45",paciente: "76",duracion:"30",valor:"5000"},
+    {fecha:"2017-03-27",hora:"8:00:00",doctor:"46",paciente: "56",duracion:"30",valor:"5000"},
+    {fecha:"2017-04-07",hora:"7:49:00",doctor:"43",paciente: "63",duracion:"30",valor:"5000"},
+    {fecha:"2017-05-27",hora:"7:49:00",doctor:"42",paciente: "23",duracion:"30",valor:"5000"},
+    {fecha:"2017-04-17",hora:"7:49:00",doctor:"41",paciente: "13",duracion:"30",valor:"5000"},
+    {fecha:"2017-03-02",hora:"7:49:00",doctor:"40",paciente: "73",duracion:"30",valor:"5000"}
+  
   ],
-  historias: [],
+ 
+  historias: [ {fecha:"2017-03-02",doctor:"40",paciente: "73",descripcion:"el chico llega con extrema verguenza  cubriendose el pecho al parecer un golpe cortopunzate por parte de su pareja la causa",diagnostico:"hemorrgia en el pezon"}],
+ 
   horarios: []
 }
 

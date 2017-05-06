@@ -19,12 +19,13 @@
         <tr v-for="paciente in pacientes">
           <td >{{paciente.id+ " " +paciente.nombre}}</td>
           <td >{{paciente.apellido}}</td>
-          <td >{{paciente.direccion}}</td>
+          <td >{{paciente.direcion}}</td>
           <td >{{paciente.telefono}}</td>
           <td >{{paciente.ocupacion}}</td>
           <td >{{paciente.nacimiento}}</td>
           <td >{{paciente.edad}}</td>
           <td >{{paciente.genero}}</td>
+          <td ></td>
           <td ><input  v-on:click="clickPaciente(paciente.id)" type="checkbox" name="eliminar" value="eliminar"></td>
         </tr>
       </tbody>
@@ -129,13 +130,13 @@
 export default {
   data () {
     return {
-       names:[],
-       name:'',
+       listaPacientes:[],
+       nombre:'',
        apellido:'',
-       direccion:'',
+       direcion:'',
        telefono:'',
        ocupacion:'',
-       fechaNacimiento:'',
+       nacimiento:'',
        edad:'',
        genero:''
        
@@ -144,9 +145,9 @@ export default {
   },
 
   computed: {
-   /* doctores(){
-      return this.$store.state.doctores
-    }*/
+    pacientes(){
+      return this.$store.state.pacientes
+    }
   },
 
  methods:{
