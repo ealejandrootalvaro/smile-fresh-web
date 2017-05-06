@@ -156,6 +156,14 @@ restapi.post('/api/cita', function(req,res){
   CITA.insertCita(req.body)
 })
 
+/* Obtener citas con un estado dado */
+restapi.get('/api/cita/estado',function(req,res){
+  CITA.getCitasEstado(function(erro,data){
+    res.json(data)
+    res.end()
+  },req.body.estado)
+})
+
 
 // ***** API HORARIOS ***** //
 
