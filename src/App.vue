@@ -57,12 +57,21 @@
 </template>
 
 <script>
+
+import moment from 'moment'
+
+
+
 export default {
+
+
+
   name: 'app',
   mounted(){
 
     this.$store.dispatch('LOAD_DOCTORES');
     this.$store.dispatch('LOAD_HORARIOS');
+
 
   }
 }

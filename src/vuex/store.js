@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import moment from 'moment'
 
 Vue.use(Vuex)
 
@@ -8,13 +9,13 @@ const state = {
    pacientes: [
    {nombre:"camilo",apellido:"melasuda",direcion:"p.sherman,callewallabey 52 sydney", telefono:"555",ocupacion:"doctor, que ironia",nacimiento:"1999-08-12",edad:"18",genero:"F"}
    ],
-    
+
   doctores: [],
-  
+
   consultas:[
     {cedula_paciente:"123",nom_med:"",hallazgos:"",cobro:"", title: "Consulta paciente 123"}
   ],
- 
+
   citas:[
     {fecha:"2017-03-27",hora:"7:49:00",doctor:"45",paciente: "76",duracion:"30",valor:"5000"},
     {fecha:"2017-03-27",hora:"8:00:00",doctor:"46",paciente: "56",duracion:"30",valor:"5000"},
@@ -22,11 +23,11 @@ const state = {
     {fecha:"2017-05-27",hora:"7:49:00",doctor:"42",paciente: "23",duracion:"30",valor:"5000"},
     {fecha:"2017-04-17",hora:"7:49:00",doctor:"41",paciente: "13",duracion:"30",valor:"5000"},
     {fecha:"2017-03-02",hora:"7:49:00",doctor:"40",paciente: "73",duracion:"30",valor:"5000"}
-  
+
   ],
- 
+
   historias: [ {fecha:"2017-03-02",doctor:"40",paciente: "73",descripcion:"el chico llega con extrema verguenza  cubriendose el pecho al parecer un golpe cortopunzate por parte de su pareja la causa",diagnostico:"hemorrgia en el pezon"}],
- 
+
   horarios: []
 }
 
@@ -192,10 +193,27 @@ const actions = {
   },
 
   ADD_HORARIO: function({commit},horario){
+
+    var dias = {Lunes: 1, Martes: 2, Miercoles: 3, Jueves: 4, Viernes: 5, Sabado: 6, Domingo: 0}
+    var currentDate = moment()
+    var fecha;
+    var cita;
     axios.post('http://localhost:3888/api/horario',horario).then((response)=>{
       horario.idHorario = response.data.id
       horario.nombre = response.data.nombre
       horario.apellido = response.data.apellido
+
+      for (var i = 0; i < 30; i++) {
+        fecha = currentDate.day(dias[horario.dia]+i*7)
+        cita = {estado: "Disponible",fecha: fecha.toDate(), hora: horario.inicio, duracion: "30", doctor: horario.doctor}
+        axios.post('http://localhost:3888/api/cita',cita).then((response)=>{
+          commit('ADD_CITA',cita)
+        }, (err) => {
+          console.log(err)
+        })
+
+      }
+
       commit('ADD_HORARIO',horario)
     }, (err) => {
       console.log(err)
