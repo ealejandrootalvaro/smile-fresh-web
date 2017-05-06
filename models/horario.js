@@ -3,7 +3,6 @@ db = new sqlite3.Database('data/database');
 HORARIO = {};
 db.serialize(function() {
     db.run("CREATE TABLE IF NOT EXISTS HORARIO (id INTEGER PRIMARY KEY AUTOINCREMENT, doctor INTEGER, dia TEXT, inicio TIME, fin TIME)");
-
 });
 
 HORARIO.insertHorario = function(callback,horario){
