@@ -9,17 +9,19 @@
             <th>Paciente</th>
             <th>Duracion de la cita</th>
             <th>Valor</th>
+            <th>Estado</th>
           </tr>
         </thead>
 
             <tbody class="text-left" >
-        <tr v-for="cita in citasPorMes">
+        <tr v-for="cita in citasMes">
           <td >{{cita.fecha}}</td>
           <td >{{cita.hora}}</td>
           <td >{{cita.doctor}}</td>
           <td >{{cita.paciente}}</td>
           <td >{{cita.duracion}}</td>
           <td >{{cita.valor}}</td>
+           <td >{{cita.estado}}</td>
  
      
      
@@ -36,18 +38,39 @@ export default {
   data () {
     return {
        citasPorMes:[],
-       fech:'',
+       fecha:'',
        hora:'',
        doctor:'',
        paciente:'',
        duracion:'',
-       valor:''
-       
+       valor:'',
+       estado:''
 
     }
   },
 
+  mounted(){
+    this.citasPorMes = this.$store.state.citas;
+  },
+
   computed: {
+    citas(){
+      return this.$store.state.citas
+    },
+
+      citasMes(){
+      
+      var ordenados=this.$store.state.citas.sort(function(a,b){
+      a=a.fecha.split("-");
+      b=b.fecha.split("-");
+      return new Date(a[2], a[1],a[0] ) - new Date(b[2], b[1], b[0])
+      })
+      return ordenados
+      console.log(ordenados)
+     
+    },
+
+
    
   },
 

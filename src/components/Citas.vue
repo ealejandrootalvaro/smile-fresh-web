@@ -9,6 +9,7 @@
             <th>Paciente</th>
             <th>Duracion</th>
             <th>valor</th>
+            <th>Estado</th>
           </tr>
         </thead> 
           <tbody class="text-left" >
@@ -19,6 +20,7 @@
           <td >{{cita.paciente}}</td>
           <td >{{cita.duracion}}</td>
           <td >{{cita.valor}}</td>
+          <td >{{cita.estado}}</td>
  
      
      
@@ -41,7 +43,8 @@ export default {
        doctor:'',
        paciente:'',
        duracion:'',
-       valor:''
+       valor:'',
+       estado:''
        
 
     }
