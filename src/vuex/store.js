@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 const state = {
    pacientes: [
-   {id: 1,nombre:"camilo",apellido:"melasuda",direcion:"p.sherman,callewallabey 52 sydney", telefono:"555",ocupacion:"doctor, que ironia",nacimiento:"1999-08-12",edad:"18",genero:"F"}
+   {id: 2,nombre:"camilo",apellido:"melasuda",direcion:"p.sherman,callewallabey 52 sydney", telefono:"555",ocupacion:"doctor, que ironia",nacimiento:"1999-08-12",edad:"18",genero:"F"}
    ],
 
   doctores: [],
@@ -87,6 +87,21 @@ const mutations = {
 
   SET_CITAS(state,citas){
     state.citas = citas
+  },
+
+  EDIT_CITA(state,cita){
+    var index = -1;
+    for (var i = 0; i < state.citas.length; i++) {
+        if(cita.idCita == state.citas[i].idCita){
+          index = i;
+          break;
+        }
+    }
+
+    if(index != -1){
+      state.citas[index].paciente = cita.paciente;
+      state.citas[index].estado = cita.estado;
+    }
   },
 
   /* OPERACIONES HISTORIA */
@@ -171,13 +186,16 @@ const actions = {
     })
   },
 
-  ASIGNAR_CITA: function({commit},cita){
-    axios.update("http://localhost:3888/api/cita/"+cita.idCita,cita).then((response)=>{
+  ASIGNAR_CITA: function({commit},data){
+    var cita = data.cita
+    cita.paciente = data.paciente
+    cita.estado = data.estado
+    axios.put("http://localhost:3888/api/cita/"+cita.idCita+"/paciente/"+cita.paciente,cita).then((response)=>{
       commit('EDIT_CITA',cita)
     }, (err) => {
-      console.log(err)
+      console.log()
     })
-  }
+  },
 
   LOAD_HISTORIAS: function({commit}){
     axios.get('http://localhost:3888/api/historia').then((response)=>{
@@ -208,9 +226,11 @@ const actions = {
 
       for (var i = 0; i < 30; i++) {
         fecha = currentDate.day(dias[horario.dia]+i*7)
+
         cita = {nombre: response.data.nombre, apellido: response.data.apellido, estado: "Disponible",fecha: fecha.format("DD-MM-YYYY"), hora: horario.inicio, duracion: "30", doctor: horario.doctor}
         axios.post('http://localhost:3888/api/cita',cita).then((response)=>{
-          cita.idCita = cita.response.data.id
+          console.log(response)
+          cita.idCita = response.data.id
           commit('ADD_CITA',cita)
         }, (err) => {
           console.log(err)

@@ -136,7 +136,7 @@ export default {
         this.paciente = ""
         this.citaSeleccionada = ""
       }else{
-
+        alert("Ingrese todos los datos requeridos")
       }
 
     },

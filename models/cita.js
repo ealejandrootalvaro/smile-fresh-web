@@ -63,4 +63,12 @@ CITA.getCitasEstado = function(callback,estado){
   });
 }
 
+CITA.editCita = function(idCita,idPaciente,estado){
+  db.run("UPDATE cita SET paciente = ?, estado = ? WHERE id = ?",[idPaciente,estado,idCita],function(err,rows){
+    if(err){
+      throw err;
+    }
+  })
+}
+
 module.exports = CITA;
