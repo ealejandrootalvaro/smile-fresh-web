@@ -17,8 +17,8 @@ const state = {
   ],
 
   citas:[
-
-
+  {id:25,fecha:"2017-03-02" ,hora:"59:40", doctor:"1", paciente:"pedrito", duracion:"30", valor:"500" ,estado:"Finalizada"},
+  {id:26,fecha:"2017-03-01" ,hora:"59:40", doctor:"1", paciente:"pedrito", duracion:"30", valor:"500" ,estado:"Finalizada"}
   ],
 
   historias: [ {fecha:"2017-03-02",doctor:"40",paciente: "73",descripcion:"el chico llega con extrema verguenza  cubriendose el pecho al parecer un golpe cortopunzate por parte de su pareja la causa",diagnostico:"hemorrgia en el pezon"}],

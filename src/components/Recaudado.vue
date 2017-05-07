@@ -31,14 +31,22 @@ export default {
   data () {
     return {
        recaudos:[],
-       mes:'',
+       fecha:'',
+       hora:'',
        doctor:'',
-       valor:''
+       paciente:'',
+       duracion:'',
+       valor:'',
+       estado:''
        
 
     }
   },
 
+    mounted(){
+    this.citasPorMes = this.$store.state.citas;
+  },
+  
   computed: {
    
   },
