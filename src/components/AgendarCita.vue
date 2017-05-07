@@ -28,40 +28,40 @@
 
                   <form role="form" id="myForm">
                   <div class="form-group">
-                    <label for="cedulaUsuario">Cedula Usuario</label>
-                      <input type="text" class="form-control"
-                      id="cedulaUsuario" placeholder="Ingrese la CC o TI" v-model="nuevaCC"/>
+                    <label for="cedulaUsuario">Usuario</label>
+                      <select class="form-control" name="" v-model="paciente">
+                        <option v-for="paciente in pacientes" v-bind:value="paciente.id">{{paciente.nombre +" "+paciente.apellido}}</option>
+                      </select>
                   </div>
                   <div class="form-group">
                     <label for="entradaApellidos">Doctores disponbles.</label>
-                    
+
                       <table class="table table-striped">
                       <thead>
                       <tr>
                       <th>Nombre</th>
                       <th>Apellido</th>
-                      <th>Email</th>
                       <th>Dia</th>
                       <th>Entrada</th>
-                      <th>Salida</th>
+                      <th>Duracion</th>
                       <th>Seleccionar</th>
 
                    </tr>
                     </thead>
                  <tbody class="text-left" >
-                   <tr v-for="medico in doctores" v-if="dayf == medico.dia">
-                  
+                   <tr v-for="medico in disponibles">
+
                    <!-- <p>{{dayf}}</p> -->
                   <td >{{medico.nombre}}</td>
                   <td >{{medico.apellido}}</td>
-                  <td >{{medico.email}}</td>        
-                  <td >{{medico.dia}}</td>                
-                  <td >{{medico.horaent}}</td>
-                  <td >{{medico.horasal}}</td>
-                  <td ><input type="checkbox" name="seleccionar" value="Medseleccionado"></td>
+
+                  <td >{{medico.fecha}}</td>
+                  <td >{{medico.hora}}</td>
+                  <td >{{medico.duracion + " Minutos"}}</td>
+                  <td ><input v-on:click="seleccionarCita(medico)" type="checkbox" name="seleccionar"></td>
                 </tr>
 
-        
+
                 </tbody>
                   </table>
                   </div>
@@ -109,13 +109,14 @@ export default {
 
   data () {
     return {
-      nuevaCC: "",
+      paciente: "",
       fcEvents: [],
-      dayf:""
-      
+      fechaSeleccionada: "",
+      citaSeleccionada: ""
+
     }
   },
-  
+
   components: {
     Horarios,
     fullCalendar
@@ -129,69 +130,28 @@ export default {
 
   methods: {
     addCita(){
-      if(this.nuevaCC != ""){
-        this.$store.commit('ADD_CITA',{cedula_paciente: this.nuevaCC, start: "2017-05-07", title: "Cita paciente "+this.nuevaCC})
+      if(this.paciente != "" && this.citaSeleccionada != ""){
+        this.$store.dispatch('ASIGNAR_CITA',{paciente: this.paciente, cita: this.citaSeleccionada, estado: "Asignada"})
         $('#modal2').modal('hide');
-        this.nuevaCC = ""
+        this.paciente = ""
+        this.citaSeleccionada = ""
+      }else{
+
       }
 
     },
 
+    seleccionarCita(cita){
+      console.log(cita)
+      this.citaSeleccionada = cita
+    },
+
     onDayMethod(day, jsEvent){
 
+      this.fechaSeleccionada = moment(day).format("DD-MM-YYYY")
 
-
-      //alert('Clicked on: ' + date.day());
-      var dayz= moment(day).format('dddd');
-      if(dayz=="Monday"){
-           
-           this.dayf= dayz.replace("Monday", "Lunes");
-           //alert(this.dayf);
-      }else{
-           if(dayz=="Tuesday"){
-           
-           this.dayf= dayz.replace("Tuesday", "Martes");
-           
-      }else{
-           
-           if(dayz=="Wednesday"){
-           
-           this.dayf= dayz.replace("Wednesday", "Miercoles");
-           
-      }else{
-           
-           if(dayz=="Thursday"){
-           
-           this.dayf= dayz.replace("Thursday", "Jueves");
-           
-      }else{
-           
-           if(dayz=="Friday"){
-           
-           this.dayf= dayz.replace("Friday", "Viernes");
-           
-      }else{
-           
-           if(dayz=="Saturday"){
-           
-           this.dayf= dayz.replace("Saturday", "Sabado");
-           
-      }else{
-           
-           if(dayz=="Sunday"){
-           
-           this.dayf= dayz.replace("Sunday", "Domingo");
-           
-                             }
-                   }
-                }
-              }
-            }
-          }      
-      }
-      
       $('#modal2').modal();
-     
+
            //alert('a day has been clicked!');
     },
 
@@ -199,18 +159,26 @@ export default {
 
     }
 
-    
+
   },
 
   computed: {
 
-    doctores(){
-      return this.$store.state.doctores
+    citas(){
+      return this.$store.state.citas
     },
-    diaSeleccionado(){
 
-      return this.$store.state.diaSeleccionado
+    disponibles(){
+      var dia = this.fechaSeleccionada;
+      return this.$store.state.citas.filter(function(item){
+        return item.fecha == dia && item.estado == "Disponible"
+      })
+    },
+
+    pacientes(){
+      return this.$store.state.pacientes
     }
+
   }
 }
 </script>

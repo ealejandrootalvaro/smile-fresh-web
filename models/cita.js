@@ -6,9 +6,16 @@ db.serialize(function() {
 
 });
 
-CITA.insertCita = function(cita){
+CITA.insertCita = function(callback,cita){
+
   var stmt = db.prepare("INSERT INTO CITA VALUES (?,?,?,?,?,?,?,?)");
-  stmt.run(null,cita.fecha,cita.hora,cita.doctor,cita.paciente,cita.duracion,cita.valor,cita.estado)
+  stmt.run(null,cita.fecha,cita.hora,cita.doctor,cita.paciente,cita.duracion,cita.valor,cita.estado, function(err){
+    if(err){
+      throw err
+    }else{
+      callback({id: this.lastID})
+    }
+  })
   stmt.finalize();
 }
 
@@ -32,8 +39,12 @@ CITA.getCita = function(callback,id){
   })
 }
 
+CITA.deleteCitas = function(callback){
+  db.run("DELETE FROM cita")
+}
+
 CITA.getCitas = function(callback){
-  db.get("SELECT * FROM CITA",function(err,rows){
+  db.all("SELECT cita.id as idCita,* FROM cita INNER JOIN doctor ON doctor.id = cita.doctor ORDER BY fecha",function(err,rows){
     if(err){
       throw err;
     }else{

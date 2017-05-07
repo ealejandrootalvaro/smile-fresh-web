@@ -7,22 +7,17 @@ Vue.use(Vuex)
 
 const state = {
    pacientes: [
-   {nombre:"camilo",apellido:"melasuda",direcion:"p.sherman,callewallabey 52 sydney", telefono:"555",ocupacion:"doctor, que ironia",nacimiento:"1999-08-12",edad:"18",genero:"F"}
+   {id: 1,nombre:"camilo",apellido:"melasuda",direcion:"p.sherman,callewallabey 52 sydney", telefono:"555",ocupacion:"doctor, que ironia",nacimiento:"1999-08-12",edad:"18",genero:"F"}
    ],
 
   doctores: [],
 
   consultas:[
-    {cedula_paciente:"123",nom_med:"",hallazgos:"",cobro:"", title: "Consulta paciente 123"}
+
   ],
 
   citas:[
-    {fecha:"2017-03-27",hora:"7:49:00",doctor:"45",paciente: "76",duracion:"30",valor:"5000"},
-    {fecha:"2017-03-27",hora:"8:00:00",doctor:"46",paciente: "56",duracion:"30",valor:"5000"},
-    {fecha:"2017-04-07",hora:"7:49:00",doctor:"43",paciente: "63",duracion:"30",valor:"5000"},
-    {fecha:"2017-05-27",hora:"7:49:00",doctor:"42",paciente: "23",duracion:"30",valor:"5000"},
-    {fecha:"2017-04-17",hora:"7:49:00",doctor:"41",paciente: "13",duracion:"30",valor:"5000"},
-    {fecha:"2017-03-02",hora:"7:49:00",doctor:"40",paciente: "73",duracion:"30",valor:"5000"}
+
 
   ],
 
@@ -81,7 +76,7 @@ const mutations = {
   },
 
   ADD_CITA(state,cita){
-    state.consultas.push(cita);
+    state.citas.push(cita);
   },
 
   SET_DOCTORES(state,doctores){
@@ -176,6 +171,14 @@ const actions = {
     })
   },
 
+  ASIGNAR_CITA: function({commit},cita){
+    axios.update("http://localhost:3888/api/cita/"+cita.idCita,cita).then((response)=>{
+      commit('EDIT_CITA',cita)
+    }, (err) => {
+      console.log(err)
+    })
+  }
+
   LOAD_HISTORIAS: function({commit}){
     axios.get('http://localhost:3888/api/historia').then((response)=>{
       commit('SET_HISTORIAS',response.data)
@@ -205,8 +208,9 @@ const actions = {
 
       for (var i = 0; i < 30; i++) {
         fecha = currentDate.day(dias[horario.dia]+i*7)
-        cita = {estado: "Disponible",fecha: fecha.toDate(), hora: horario.inicio, duracion: "30", doctor: horario.doctor}
+        cita = {nombre: response.data.nombre, apellido: response.data.apellido, estado: "Disponible",fecha: fecha.format("DD-MM-YYYY"), hora: horario.inicio, duracion: "30", doctor: horario.doctor}
         axios.post('http://localhost:3888/api/cita',cita).then((response)=>{
+          cita.idCita = cita.response.data.id
           commit('ADD_CITA',cita)
         }, (err) => {
           console.log(err)

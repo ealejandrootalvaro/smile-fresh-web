@@ -153,7 +153,10 @@ restapi.get('/api/cita/paciente/:id', function(req,res){
 
 /* Insertar una nueva cita */
 restapi.post('/api/cita', function(req,res){
-  CITA.insertCita(req.body)
+  CITA.insertCita(function(data){
+    res.json(data)
+    res.end()
+  },req.body)
 })
 
 /* Obtener citas con un estado dado */
@@ -162,6 +165,11 @@ restapi.get('/api/cita/estado',function(req,res){
     res.json(data)
     res.end()
   },req.body.estado)
+})
+
+restapi.delete('/api/cita',function(req,res){
+  CITA.deleteCitas()
+  res.end()
 })
 
 
