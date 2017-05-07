@@ -87,7 +87,10 @@ restapi.get('/api/paciente', function(req,res){
 
 /* Insertar pacientes */
 restapi.post('/api/paciente', function(req,res){
-  PACIENTE.insertPaciente(req.body)
+  PACIENTE.insertPaciente(function(data){
+    res.json(data)
+    res.end()
+  },req.body)
   res.end()
 })
 
@@ -97,6 +100,11 @@ restapi.get('api/paciente/:id', function(req,res){
     res.json(data)
     res.end()
   },req.params.id)
+})
+
+restapi.delete('api/paciente/:id',function(req,res){
+  PACIENTE.deletePaciente(req.params.id)
+  res.end()
 })
 
 

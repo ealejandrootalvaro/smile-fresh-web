@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 const state = {
    pacientes: [
-   {id: 2,nombre:"camilo",apellido:"melasuda",direcion:"p.sherman,callewallabey 52 sydney", telefono:"555",ocupacion:"doctor, que ironia",nacimiento:"1999-08-12",edad:"18",genero:"F"}
+
    ],
 
   doctores: [],
@@ -53,8 +53,7 @@ const mutations = {
   },
 
   DELETE_DOCTOR (state,id){
-    console.log("antes")
-    console.log(state.doctores)
+
     var index =-1;
     for (var i = 0; i < state.doctores.length; i++) {
       if(state.doctores[i].id == id){
@@ -67,8 +66,7 @@ const mutations = {
       state.doctores.splice(index,1)
     }
 
-    console.log("despues")
-    console.log(state.doctores)
+
   },
 
   ADD_CONSULTA(state,consulta){
@@ -132,6 +130,29 @@ const mutations = {
     if(index != -1){
       state.horarios.splice(index,1)
     }
+  },
+
+  ADD_PACIENTE(state,paciente){
+    state.pacientes.push(paciente)
+  },
+
+  DELETE_PACIENTE(state,id){
+    var index =-1;
+    for (var i = 0; i < state.pacientes.length; i++) {
+      if(state.pacientes[i].id == id){
+        index = i;
+        break;
+      }
+    }
+
+    if(index != -1){
+      state.pacientes.splice(index,1)
+    }
+  },
+
+  SET_PACIENTES(state,pacientes){
+    console.log(pacientes)
+    state.pacientes = pacientes
   }
 
 }
@@ -177,6 +198,25 @@ const actions = {
       console.log(err)
     })
   },
+
+  ADD_PACIENTE: function({commit}, paciente){
+    axios.post('http://localhost:3888/api/paciente',paciente).then((response)=>{
+      paciente.id = response.data
+      commit('ADD_PACIENTE',paciente)
+    }, (err) => {
+      console.log(err)
+    })
+  },
+
+
+  DELETE_PACIENTE: function({commit}, paciente){
+    axios.delete('http://localhost:3888/api/paciente/'+paciente).then((response)=>{
+      commit("DELETE_PACIENTE",paciente)
+    }, (err) => {
+      console.log(err)
+    })
+  },
+
 
   LOAD_CITAS: function({commit}){
     axios.get('http://localhost:3888/api/cita').then((response)=>{

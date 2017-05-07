@@ -68,11 +68,12 @@ export default {
 
   name: 'app',
   mounted(){
-    
+
 
     this.$store.dispatch('LOAD_DOCTORES');
     this.$store.dispatch('LOAD_HORARIOS');
     this.$store.dispatch('LOAD_CITAS');
+    this.$store.dispatch("LOAD_PACIENTES")
 
   }
 }
