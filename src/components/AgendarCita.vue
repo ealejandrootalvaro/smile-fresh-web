@@ -7,7 +7,7 @@
 <!-- <button href="#modal2" class="btn btn-primary black-background white" data-toggle="modal">7/mayo/2017</button> -->
 
 
-  <full-calendar :events="fcEvents" v-on:dayClick="onDayMethod" v-on:eventClick="onEventMethod" locale="zh"></full-calendar>
+  <full-calendar :events="todasCitasDisponibles" v-on:dayClick="onDayMethod" v-on:eventClick="onEventMethod" locale="zh"></full-calendar>
 
 
       <div class="modal fade" id="modal2">
@@ -122,8 +122,9 @@ export default {
     fullCalendar
   },
 
-  mounted(){
-    this.fcEvents = this.$store.state.consultas;
+  created(){
+
+
   },
 
 
@@ -147,8 +148,8 @@ export default {
     },
 
     onDayMethod(day, jsEvent){
-
-      this.fechaSeleccionada = moment(day).format("DD-MM-YYYY")
+      console.log(moment())
+      this.fechaSeleccionada = moment(day).format("MM-DD-YYYY")
 
       $('#modal2').modal();
 
@@ -170,9 +171,26 @@ export default {
 
     disponibles(){
       var dia = this.fechaSeleccionada;
-      return this.$store.state.citas.filter(function(item){
+      var disponibles = this.$store.state.citas.filter(function(item){
         return item.fecha == dia && item.estado == "Disponible"
       })
+
+      return disponibles
+
+    },
+
+    todasCitasDisponibles(){
+
+      var disponibles = this.$store.state.citas
+
+      for (var i = 0; i < disponibles.length; i++) {
+        var fecha = moment(disponibles[i].fecha).format('MM-DD-YY');
+        disponibles[i].start = fecha;
+        disponibles[i].title = disponibles[i].estado
+
+      }
+
+      return disponibles
     },
 
     pacientes(){

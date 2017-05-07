@@ -217,26 +217,43 @@ const actions = {
 
     var dias = {Lunes: 1, Martes: 2, Miercoles: 3, Jueves: 4, Viernes: 5, Sabado: 6, Domingo: 0}
     var currentDate = moment()
-    var fecha;
-    var cita;
+    var fecha = moment().day(dias[horario.dia]);
+
+
+
+
     axios.post('http://localhost:3888/api/horario',horario).then((response)=>{
       horario.idHorario = response.data.id
       horario.nombre = response.data.nombre
       horario.apellido = response.data.apellido
 
+      var i=0;
+
+
       for (var i = 0; i < 30; i++) {
-        fecha = currentDate.day(dias[horario.dia]+i*7)
+        if(i!=0){
+          fecha = fecha.add(7,"days");
+        }
 
-        cita = {nombre: response.data.nombre, apellido: response.data.apellido, estado: "Disponible",fecha: fecha.format("DD-MM-YYYY"), hora: horario.inicio, duracion: "30", doctor: horario.doctor}
-        axios.post('http://localhost:3888/api/cita',cita).then((response)=>{
-          console.log(response)
-          cita.idCita = response.data.id
-          commit('ADD_CITA',cita)
-        }, (err) => {
-          console.log(err)
-        })
 
+        (function(date){
+
+          console.log(date)
+          var cita = {nombre: response.data.nombre, apellido: response.data.apellido, estado: "Disponible",fecha: date.format("MM-DD-YYYY"), hora: horario.inicio, duracion: "30", doctor: horario.doctor}
+          axios.post('http://localhost:3888/api/cita',cita).then((response)=>{
+
+            cita.idCita = response.data.id;
+            commit('ADD_CITA',cita);
+
+          }, (err) => {
+            console.log(err)
+          })
+        }(fecha))
       }
+
+
+
+
 
       commit('ADD_HORARIO',horario)
     }, (err) => {

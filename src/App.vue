@@ -68,7 +68,6 @@ export default {
 
   name: 'app',
   mounted(){
-
     
 
     this.$store.dispatch('LOAD_DOCTORES');
