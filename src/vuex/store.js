@@ -245,6 +245,7 @@ const actions = {
 
   ASIGNAR_CITA: function({commit},data){
     var cita = data.cita
+    cita.valor = data.valor
     cita.paciente = data.paciente
     cita.estado = data.estado
     axios.put("http://localhost:3888/api/cita/"+cita.idCita+"/paciente/"+cita.paciente,cita).then((response)=>{

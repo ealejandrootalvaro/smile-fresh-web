@@ -4,10 +4,10 @@
     <div class="" v-for="historia in historias">
       <h2>Fecha: {{historia.fecha}}</h2>
       <p>Paciente: {{historia.paciente}}</p>
-      <h3>Descripcion: </h3>
-      <p>{{historia.descripcion}}</p>
       <h3>Diagnostico:</h3>
       <p>{{historia.diagnostico}}</p>
+      <h3>Tratamiento: </h3>
+      <p>{{historia.descripcion}}</p>
       <hr>
     </div>
   </div>

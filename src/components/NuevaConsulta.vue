@@ -23,11 +23,7 @@
       </div>
 
 
-      <div class="form-group">
-        <label for="">Describa el motivo de la consulta y el estado del paciente: </label>
-        <br>
-        <textarea name="name" class="form-control" v-model="descripcion"></textarea>
-      </div>
+
 
       <div class="form-group">
         <label for="entradaHallazgos">Ingrese el diagnostico</label>
@@ -35,13 +31,12 @@
         <textarea id="entradaHallazgos" class="form-control" placeholder="Hallazgos"  v-model="diagnostico"></textarea>
       </div>
 
-
-
       <div class="form-group">
-        <label for="entradaPago">Ingrese el cobro que se le debe hacer a la persona por esta consulta:</label>
-        <input  type="text" class="form-control"
-        id="entradaPago" placeholder="Ingrese el valor en COP" v-model="nuevoPago"style="width: 200px; "/>
+        <label for="">Describa el tratamiento: </label>
+        <br>
+        <textarea name="name" class="form-control" v-model="descripcion"></textarea>
       </div>
+
       <button @click="finalizarConsulta" class="btn btn-primary black-background white">
 
         Finalizar consulta

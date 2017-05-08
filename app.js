@@ -200,7 +200,7 @@ restapi.delete('/api/cita',function(req,res){
 })
 
 restapi.put('/api/cita/:idCita/paciente/:idPaciente',function(req,res){
-  CITA.editCita(req.params.idCita,req.params.idPaciente,req.body.estado)
+  CITA.editCita(req.params.idCita,req.params.idPaciente,req.body.estado,req.body)
   res.end()
 })
 
