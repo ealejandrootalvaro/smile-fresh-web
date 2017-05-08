@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import moment from 'moment'
+import {router} from '../main.js'
 
 Vue.use(Vuex)
 
@@ -256,21 +257,29 @@ const actions = {
   FINALIZAR_CITA: function({commit},historia){
     var idCita = historia.idCita
     console.log(historia)
-    axios.put("http://localhost:3888/api/cita/"+idCita+"/estado/Cerrada").then((response)=>{
 
-      commit('FINALIZAR_CITA',idCita)
-    }, (err) => {
-      console.log(err)
+    return new Promise((resolve,reject) =>{
+      axios.put("http://localhost:3888/api/cita/"+idCita+"/estado/Cerrada").then((response)=>{
+
+        commit('FINALIZAR_CITA',idCita)
+        axios.post("http://localhost:3888/api/historia",historia).then((response)=>{
+          console.log(response.data)
+          console.log(historia)
+          historia.id = response.data.id
+          commit('ADD_HISTORIA',historia)
+          resolve()
+        }, (err) => {
+          console.log(err)
+          reject()
+        })
+      }, (err) => {
+        console.log(err)
+        reject()
+      })
     })
 
-    axios.post("http://localhost:3888/api/historia",historia).then((response)=>{
-      console.log(response.data)
-      console.log(historia)
-      historia.id = response.data.id
-      commit('ADD_HISTORIA',historia)
-    }, (err) => {
-      console.log(err)
-    })
+
+
   },
 
   LOAD_HISTORIAS: function({commit}){

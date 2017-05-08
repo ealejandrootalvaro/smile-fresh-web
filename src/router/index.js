@@ -9,6 +9,7 @@ import ListadoPacientes from '@/components/ListadoPacientes'
 import Citas from '@/components/Citas'
 import CitasPorMes from '@/components/CitasPorMes'
 import Recaudado from '@/components/Recaudado'
+import HistoriaPaciente from '@/components/HistoriaPaciente'
 
 
 
@@ -64,6 +65,11 @@ export default new Router({
       name: 'consulta',
       path: '/consulta/:id',
       component: NuevaConsulta
+    },
+    {
+      name: 'historiaPaciente',
+      path: '/historia/paciente/:id',
+      component: HistoriaPaciente
     }
 
   ]

@@ -1,6 +1,9 @@
 <template>
   <div class="container" v-show="cita">
     <h2 class="text" >Registro de la consulta {{$route.params.id}}</h2>
+
+
+
       <div class="form-group">
         <label for="">Paciente: </label><span> {{cita.nombrePaciente + " " + cita.apellidoPaciente}}</span>
       </div>
@@ -10,12 +13,13 @@
         <span>{{cita.fecha}}</span>
       </div>
 
-
-
-
       <div class="form-group">
         <label for="entradaPago">Medico: </label>
         <span>{{cita.nombreDoctor}}</span>
+      </div>
+
+      <div class="">
+        <router-link target="_blank" :to="{name: 'historiaPaciente', params: {id: cita.idPaciente}}">Ver historia del paciente</router-link>
       </div>
 
 
@@ -85,9 +89,13 @@ export default {
         return
       }else{
         this.$store.dispatch('FINALIZAR_CITA',{idCita: this.$route.params.id,descripcion: this.descripcion, diagnostico: this.diagnostico, doctor: this.cita.idDoctor, paciente: this.cita.idDoctor, fecha: this.cita.fecha})
+        .then(() => {
+          this.$router.push("/")
+        }).catch((err) =>{
+          alert("Error al finalizar consulta. Intente de nuevo")
+        })
       }
     }
-
   }
 }
 </script>

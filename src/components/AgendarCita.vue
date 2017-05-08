@@ -59,11 +59,16 @@
                   <td >{{medico.hora}}</td>
                   <td >{{medico.duracion + " Minutos"}}</td>
                   <td ><input v-on:click="seleccionarCita(medico)" type="checkbox" name="seleccionar"></td>
+
                 </tr>
 
 
                 </tbody>
                   </table>
+                  <div v-show="citaSeleccionada" class="form-group">
+                    <label>Ingrese el costo de la cita</label>
+                    <input type="number" v-model="valor" name="" class="form-control" value="" style="font-size:30px">
+                  </div>
                   </div>
 
 
@@ -112,7 +117,8 @@ export default {
       paciente: "",
       fcEvents: [],
       fechaSeleccionada: "",
-      citaSeleccionada: ""
+      citaSeleccionada: "",
+      valor: ""
 
     }
   },
@@ -131,7 +137,7 @@ export default {
 
   methods: {
     addCita(){
-      if(this.paciente != "" && this.citaSeleccionada != ""){
+      if(this.paciente != "" && this.citaSeleccionada != "" && this.valor != ""){
         this.$store.dispatch('ASIGNAR_CITA',{paciente: this.paciente, cita: this.citaSeleccionada, estado: "Asignada"})
         $('#modal2').modal('hide');
         this.paciente = ""
@@ -144,7 +150,12 @@ export default {
 
     seleccionarCita(cita){
       console.log(cita)
-      this.citaSeleccionada = cita
+      if(this.citaSeleccionada == cita){
+        this.citaSeleccionada = ""
+      }else{
+        this.citaSeleccionada = cita
+      }
+
     },
 
     onDayMethod(day, jsEvent){
