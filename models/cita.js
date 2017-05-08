@@ -30,7 +30,7 @@ CITA.getCitasPaciente = function(callback,paciente){
 }
 
 CITA.getCita = function(callback,id){
-  db.get("SELECT * FROM CITA WHERE id = ? ",[id],function(err,row){
+  db.get("SELECT paciente.nombre as nombrePaciente, paciente.apellido as apellidoPaciente, cita.fecha as fecha, doctor.nombre as nombreDoctor, cita.id as idCita, cita.valor as valor, doctor.id as idDoctor, paciente.id as idPaciente FROM cita INNER JOIN paciente ON paciente.id = cita.paciente INNER JOIN doctor ON doctor.id = cita.doctor WHERE cita.id = ? ",[id],function(err,row){
     if(err){
       throw err;
     }else{
@@ -69,6 +69,10 @@ CITA.editCita = function(idCita,idPaciente,estado){
       throw err;
     }
   })
+}
+
+CITA.editEstado = function(idCita,estado){
+  db.run("UPDATE cita SET estado = ? WHERE id = ?",[estado,idCita])
 }
 
 module.exports = CITA;

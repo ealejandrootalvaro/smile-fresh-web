@@ -1,106 +1,91 @@
 <template>
-  <div class="container">
-    <h2 class="text" >Registro de una consulta actual.</h2>
-    
-    
-    
-                  <form role="form" id="formz" style="text-align: left;">
-                  
-                       <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th></th>
-          
-          </tr>
-        </thead> 
-         <tbody class="text-left" >
-        <tr v-for="paciente in pacientes">
-          <td >{{paciente.nombre}}</td>
-          <td >{{paciente.apellido}}</td>
-         
-          <td ><input type="checkbox" name="seleccionar" value="Selecionar"></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="container" v-show="cita">
+    <h2 class="text" >Registro de la consulta {{$route.params.id}}</h2>
+      <div class="form-group">
+        <label for="">Paciente: </label><span> {{cita.nombrePaciente + " " + cita.apellidoPaciente}}</span>
+      </div>
 
-                           <div class="form-group">
-                          <label for="entradaPago">Seleccione la fecha.</label>  
-                         <input  type="date" class="form-control"
-                           id="fechaConsulta" placeholder="Ingrese su nombre." v-model="nuevaFecha"style="width: 200px; "/>              
-                          </div>
+      <div class="form-group">
+        <label for="entradaPago">Fecha: </label>
+        <span>{{cita.fecha}}</span>
+      </div>
 
 
 
 
-                           <div class="form-group">
-                          <label for="entradaPago">Ingrese el nombre del medico que atiende.</label>  
-                         <input  type="text" class="form-control"
-                           id="entradanombreMed" placeholder="Ingrese su nombre." v-model="nuevoNameMedico"style="width: 200px; "/>              
-                          </div>
+      <div class="form-group">
+        <label for="entradaPago">Medico: </label>
+        <span>{{cita.nombreDoctor}}</span>
+      </div>
 
 
-                           <div class="form-group">
-                               <label for="entradaHallazgos">Describa los hallazgos en esta consulta :</label> 
-                               <br>                  
-                               <textarea id="entradaHallazgos" placeholder="Hallazgos" rows="10" cols="90" v-model="hallazgos"></textarea>
-                           
-                           </div>
+      <div class="form-group">
+        <label for="">Describa el motivo de la consulta y el estado del paciente: </label>
+        <br>
+        <textarea name="name" class="form-control" v-model="descripcion"></textarea>
+      </div>
 
-
-
-                          <div class="form-group">
-                          <label for="entradaPago">Ingrese el cobro que se le debe hacer a la persona por esta consulta:</label>  
-                         <input  type="text" class="form-control"
-                           id="entradaPago" placeholder="Ingrese el valor en COP" v-model="nuevoPago"style="width: 200px; "/>              
-                          </div>
-                          <button @click="addConsulta" class="btn btn-primary black-background white">
-
-                             Registrar Consulta
-                          </button>
+      <div class="form-group">
+        <label for="entradaHallazgos">Ingrese el diagnostico</label>
+        <br>
+        <textarea id="entradaHallazgos" class="form-control" placeholder="Hallazgos"  v-model="diagnostico"></textarea>
+      </div>
 
 
 
+      <div class="form-group">
+        <label for="entradaPago">Ingrese el cobro que se le debe hacer a la persona por esta consulta:</label>
+        <input  type="text" class="form-control"
+        id="entradaPago" placeholder="Ingrese el valor en COP" v-model="nuevoPago"style="width: 200px; "/>
+      </div>
+      <button @click="finalizarConsulta" class="btn btn-primary black-background white">
 
-
-
-
-
-
-
-
-
-
-                </form>
-   
-    
+        Finalizar consulta
+      </button>
 
   </div>
 </template>
 
 <script>
 
+import axios from 'axios'
 
 
 export default {
-  
+
   data () {
     return {
-      
+      cita: {},
+      descripcion: '',
+      diagnostico: '',
+      nuevoPago: ''
     }
   },
-  
+
+  mounted(){
+    console.log("holaaaaaa")
+    axios.get("http://localhost:3888/api/cita/"+this.$route.params.id).then((response)=>{
+      console.log(response.data)
+      this.cita = response.data
+    }, (err)=>{
+      console.log(err)
+    })
+  },
+
   computed: {
     consultas(){
       return this.$store.state.consultas
     }
-    
+
   },
   methods:{
-    addConsulta(){
-      //alert('adding name');
-      this.$store.commit('ADD_CONSULTA',{cedula_paciente: this.nuevaFecha, fecha: this.nuevaFecha,nom_med: this.nuevoNameMedico,hallazgos: this.hallazgos,cobro: this.nuevoPago});     
+    finalizarConsulta(){
+      if(this.descripcion == "" && this.diagnostico == ""){
+        alert("Ingrese los campos obligatorios")
+        return
+      }else{
+        this.$store.dispatch('FINALIZAR_CITA',{idCita: this.$route.params.id,descripcion: this.descripcion, diagnostico: this.diagnostico, doctor: this.cita.idDoctor, paciente: this.cita.idDoctor, fecha: this.cita.fecha})
+      }
     }
 
   }
@@ -131,7 +116,7 @@ a {
 
 label,input,textarea,button{
 
-   font-size: 25px;
+  font-size: 25px;
 }
 
 .black-background {background-color:#4d4d4d;}

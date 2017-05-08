@@ -10,10 +10,12 @@
             <th>Duracion</th>
             <th>valor</th>
             <th>Estado</th>
+            <th>Consulta</th>
           </tr>
-        </thead> 
+        </thead>
           <tbody class="text-left" >
         <tr v-for="cita in citas">
+
           <td >{{cita.fecha}}</td>
           <td >{{cita.hora}}</td>
           <td >{{cita.doctor}}</td>
@@ -21,13 +23,14 @@
           <td >{{cita.duracion}}</td>
           <td >{{cita.valor}}</td>
           <td >{{cita.estado}}</td>
- 
-     
-     
-     
+          <td><router-link v-if="cita.estado == 'Asignada'" :to="{name: 'consulta', params: {id: cita.idCita}}">Ir a consulta</router-link></td>
+
+
+
+
         </tr>
       </tbody>
- 
+
 
     </table>
   </div>
@@ -45,7 +48,7 @@ export default {
        duracion:'',
        valor:'',
        estado:''
-       
+
 
     }
   },
@@ -54,13 +57,13 @@ export default {
         citas(){
       return this.$store.state.citas
     }
-   
+
   },
 
  methods:{
-     
 
-   
+
+
 
   }
 

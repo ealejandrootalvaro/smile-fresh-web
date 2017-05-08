@@ -21,7 +21,7 @@ const state = {
   {id:26,fecha:"2017-03-01" ,hora:"59:40", doctor:"1", paciente:"pedrito", duracion:"30", valor:"500" ,estado:"Finalizada"}
   ],
 
-  historias: [ {fecha:"2017-03-02",doctor:"40",paciente: "73",descripcion:"el chico llega con extrema verguenza  cubriendose el pecho al parecer un golpe cortopunzate por parte de su pareja la causa",diagnostico:"hemorrgia en el pezon"}],
+  historias: [],
 
   horarios: []
 }
@@ -99,6 +99,20 @@ const mutations = {
     if(index != -1){
       state.citas[index].paciente = cita.paciente;
       state.citas[index].estado = cita.estado;
+    }
+  },
+
+  FINALIZAR_CITA(state,idCita){
+    var index = -1;
+    for (var i = 0; i < state.citas.length; i++) {
+        if(idCita == state.citas[i].idCita){
+          index = i;
+          break;
+        }
+    }
+
+    if(index != -1){
+      state.citas[index].estado = "Cerrada";
     }
   },
 
@@ -235,7 +249,27 @@ const actions = {
     axios.put("http://localhost:3888/api/cita/"+cita.idCita+"/paciente/"+cita.paciente,cita).then((response)=>{
       commit('EDIT_CITA',cita)
     }, (err) => {
-      console.log()
+      console.log(err)
+    })
+  },
+
+  FINALIZAR_CITA: function({commit},historia){
+    var idCita = historia.idCita
+    console.log(historia)
+    axios.put("http://localhost:3888/api/cita/"+idCita+"/estado/Cerrada").then((response)=>{
+
+      commit('FINALIZAR_CITA',idCita)
+    }, (err) => {
+      console.log(err)
+    })
+
+    axios.post("http://localhost:3888/api/historia",historia).then((response)=>{
+      console.log(response.data)
+      console.log(historia)
+      historia.id = response.data.id
+      commit('ADD_HISTORIA',historia)
+    }, (err) => {
+      console.log(err)
     })
   },
 

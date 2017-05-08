@@ -24,70 +24,47 @@ export default new Router({
     },
 
     {
-    	path: '/horarios',
-        component: Horarios
+      path: '/horarios',
+      component: Horarios
     },
 
     {
-
-      path:'/nuevaconsulta',
-      component: NuevaConsulta
-
-    },
-
-    {
-        path:'/agendarcita',
+      path:'/agendarcita',
       component: AgendarCita
-
-
-
 
     }
     ,{
-        path:'/doctores',
+      path:'/doctores',
       component: Doctores
-
-
-
-
     },
 
     {
-
       path:'/ListadoPacientes',
       component: ListadoPacientes
-
     },
 
     {
-        path:'/Citas',
+      path:'/Citas',
       component: Citas
-
-
-
-
     },
 
     {
-        path:'/HistoriaClinica',
+      path:'/HistoriaClinica',
       component: HistoriaClinica
-
-
-
-
     }
-  ,{
-        path:'/recaudado',
+    ,{
+      path:'/recaudado',
       component: Recaudado
-
-
-      }
- ,{
-        path:'/citasPorMes',
+    }
+    ,{
+      path:'/citasPorMes',
       component: CitasPorMes
-
-
-      }
+    },
+    {
+      name: 'consulta',
+      path: '/consulta/:id',
+      component: NuevaConsulta
+    }
 
   ]
 })

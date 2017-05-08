@@ -132,7 +132,7 @@ restapi.post('/api/historia',function(req,res){
     res.json(data)
     res.end()
   },req.body)
-  res.end()
+
 })
 
 /* Obtener historia con el id */
@@ -189,6 +189,12 @@ restapi.get('/api/cita/estado',function(req,res){
   },req.body.estado)
 })
 
+restapi.get('/api/cita/:id',function(req,res){
+  CITA.getCita(function(err,data){
+    res.json(data)
+    res.end()
+  },req.params.id)
+})
 restapi.delete('/api/cita',function(req,res){
   CITA.deleteCitas()
   res.end()
@@ -196,6 +202,12 @@ restapi.delete('/api/cita',function(req,res){
 
 restapi.put('/api/cita/:idCita/paciente/:idPaciente',function(req,res){
   CITA.editCita(req.params.idCita,req.params.idPaciente,req.body.estado)
+  res.end()
+})
+
+restapi.put('/api/cita/:idCita/estado/:estado',function(req,res){
+  CITA.editEstado(req.params.idCita,req.params.estado)
+  res.end()
 })
 
 

@@ -8,8 +8,8 @@ db.serialize(function() {
 });
 
 HISTORIA.insertHistoria = function(callback,historia){
-  var stmt = db.prepare("INSERT INTO HISTORIA VALUES (?,?,?,?,?)");
-  stmt.run(null,historia.date,historia.doctor,historia.paciente,historia.descripcion, historia.diagnostico,function(err){
+  var stmt = db.prepare("INSERT INTO HISTORIA VALUES (?,?,?,?,?,?)");
+  stmt.run(null,historia.fecha,historia.doctor,historia.paciente,historia.descripcion, historia.diagnostico,function(err){
     if(err){
       throw err
     }else{
@@ -29,7 +29,7 @@ HISTORIA.getHistoriasPaciente = function(callback,paciente){
   })
 }
 
-HISTORIA.getHistorias = function(){
+HISTORIA.getHistorias = function(callback){
   db.all("SELECT * FROM HISTORIA",function(err,rows){
     if(err){
       throw err;

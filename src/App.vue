@@ -1,14 +1,14 @@
 <template>
-  
 
-    
-    
+
+
+
 <div id="app">
 
 <div class="container">
 
 <header>
-  
+
 <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
   <!-- Overlay -->
   <div class="overlay"></div>
@@ -19,7 +19,7 @@
     <li data-target="#bs-carousel" data-slide-to="1"></li>
     <li data-target="#bs-carousel" data-slide-to="2"></li>
   </ol>
-  
+
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item slides active">
@@ -27,41 +27,41 @@
       <div class="overlay"></div>
       <div class="hero">
         <hgroup>
-            <h1>Smile Fresh</h1>        
+            <h1>Smile Fresh</h1>
             <h3>Opciones de financiamiento</h3>
         </hgroup>
-        
+
       </div>
     </div>
     <div class="item slides">
       <div class="slide-2"></div>
       <div class="overlay"></div>
-      <div class="hero">        
+      <div class="hero">
         <hgroup>
-            <h1>Smile Fresh</h1>        
+            <h1>Smile Fresh</h1>
             <h3>Ortodoncia sin cuota inicial</h3>
-        </hgroup>       
-        
+        </hgroup>
+
       </div>
     </div>
     <div class="item slides">
       <div class="slide-3"></div>
       <div class="overlay"></div>
-      <div class="hero">        
+      <div class="hero">
         <hgroup>
-            <h1>Smile Fresh</h1>        
+            <h1>Smile Fresh</h1>
             <h3>Pregunta por nuestros planes familiares</h3>
         </hgroup>
-        
+
       </div>
     </div>
-  </div> 
+  </div>
 </div>
 
 
 </header>
-    
-    
+
+
 
 
 
@@ -74,7 +74,7 @@
           <a class="navbar-brand" href="#" style="font-family: 'Romanesco';font-size: 30px;">Smile Fresh</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class=""><a href="#">Home</a></li>
+
           <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Doctores<span class="caret"></span></a>
             <ul class="dropdown-menu">
 
@@ -85,7 +85,7 @@
           </li>
           <router-link to="/agendarcita" active-class="active" tag="li" exact><a href="#">Agendar Cita</a></li></router-link>
           <!-- <a href="#">Nueva Consulta</a></li> -->
-          <router-link to="/nuevaconsulta" active-class="active" tag="li" exact><a href="#">Nueva Consulta</a></router-link>
+
 
           <router-link to="/ListadoPacientes" active-class="active" tag="li" exact><a href="#">Listado Pacientes</a></router-link>
 
@@ -103,13 +103,13 @@
             </ul>
             </li>
         </ul>
-        
+
       </div>
     </nav>
 
 
 <body>
-  
+
 
 
 </body>
@@ -142,7 +142,8 @@ export default {
     this.$store.dispatch('LOAD_DOCTORES');
     this.$store.dispatch('LOAD_HORARIOS');
     this.$store.dispatch('LOAD_CITAS');
-    this.$store.dispatch("LOAD_PACIENTES")
+    this.$store.dispatch("LOAD_PACIENTES");
+    this.$store.dispatch("LOAD_HISTORIAS");
 
   }
 }
@@ -154,7 +155,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  
+
   margin-top: 60px;
 }
 
@@ -220,7 +221,7 @@ Image credits: unsplash.com
               transform: translate3d(-50%,-50%,0);
 }
 .hero h1 {
-    font-size: 6em;    
+    font-size: 6em;
     font-weight: bold;
     margin: 0;
     padding: 0;
@@ -229,18 +230,18 @@ Image credits: unsplash.com
 .fade-carousel .carousel-inner .item .hero {
     opacity: 0;
     -webkit-transition: 2s all ease-in-out .1s;
-       -moz-transition: 2s all ease-in-out .1s; 
-        -ms-transition: 2s all ease-in-out .1s; 
-         -o-transition: 2s all ease-in-out .1s; 
-            transition: 2s all ease-in-out .1s; 
+       -moz-transition: 2s all ease-in-out .1s;
+        -ms-transition: 2s all ease-in-out .1s;
+         -o-transition: 2s all ease-in-out .1s;
+            transition: 2s all ease-in-out .1s;
 }
 .fade-carousel .carousel-inner .item.active .hero {
     opacity: 1;
     -webkit-transition: 2s all ease-in-out .1s;
-       -moz-transition: 2s all ease-in-out .1s; 
-        -ms-transition: 2s all ease-in-out .1s; 
-         -o-transition: 2s all ease-in-out .1s; 
-            transition: 2s all ease-in-out .1s;    
+       -moz-transition: 2s all ease-in-out .1s;
+        -ms-transition: 2s all ease-in-out .1s;
+         -o-transition: 2s all ease-in-out .1s;
+            transition: 2s all ease-in-out .1s;
 }
 
 /********************************/
@@ -272,7 +273,7 @@ Image credits: unsplash.com
 /********************************/
 /*       Slides backgrounds     */
 /********************************/
-.fade-carousel .slides .slide-1, 
+.fade-carousel .slides .slide-1,
 .fade-carousel .slides .slide-2,
 .fade-carousel .slides .slide-3 {
   height: 300px;
@@ -281,7 +282,7 @@ Image credits: unsplash.com
   background-repeat: no-repeat;
 }
 .fade-carousel .slides .slide-1 {
-  background-image: url(http://www.matizzclinicasodontologicas.com/images/tratamientos/odontologia_general.png); 
+  background-image: url(http://www.matizzclinicasodontologicas.com/images/tratamientos/odontologia_general.png);
 }
 .fade-carousel .slides .slide-2 {
   background-image: url(https://www.dentioral.com/wp-content/uploads/2015/12/kit-de-ortodoncia-dentioral.jpg);
@@ -294,10 +295,10 @@ Image credits: unsplash.com
 /*          Media Queries       */
 /********************************/
 @media screen and (min-width: 980px){
-    .hero { width: 980px; }    
+    .hero { width: 980px; }
 }
 @media screen and (max-width: 640px){
-    .hero h1 { font-size: 4em; }    
+    .hero h1 { font-size: 4em; }
 }
 
 </style>
