@@ -174,7 +174,8 @@ export default {
       
 
      var numeros = /^[0-9]+$/;  
-     var letras = /^[A-Za-z]+$/; 
+     var letras = /^[A-Za-z\s]+$/; 
+    
       if(this.nuevoName  == "" || this.nuevoApellido == "" || this.nuevoEmail == "" || this.nuevaDireccion == "" || this.nuevoTelefono == "" || this.nuevaOcupacion == "" || this.nuevaFechaNaci == "" || this.nuevaEdad == "" || this.nuevoGenero == ""  ){
 
           alert('Asegurese de llenar todos los campos del formulario.');
