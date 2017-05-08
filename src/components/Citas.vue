@@ -55,7 +55,8 @@ export default {
 
   computed: {
         citas(){
-      return this.$store.state.citas
+      var arreglo= this.$store.state.citas
+      return arreglo
     }
 
   },

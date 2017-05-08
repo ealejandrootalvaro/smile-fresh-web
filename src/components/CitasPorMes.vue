@@ -60,12 +60,15 @@ export default {
 
       citasMes(){
       
-      var ordenados=this.$store.state.citas.sort(function(a,b){
+      var ordenados=this.$store.state.citas
+
+
+      var  orden= ordenados.sort(function(a,b){
       a=a.fecha.split("-");
       b=b.fecha.split("-");
-      return new Date(a[2], a[1],a[0] ) - new Date(b[2], b[1], b[0])
+      return new Date(a[2], a[0],a[1] ) - new Date(b[2], b[0], b[1])
       })
-      return ordenados
+      return orden
       console.log(ordenados)
      
     },
