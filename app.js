@@ -91,7 +91,6 @@ restapi.post('/api/paciente', function(req,res){
     res.json(data)
     res.end()
   },req.body)
-  res.end()
 })
 
 /* Obtener informacion del paciente con el id */
