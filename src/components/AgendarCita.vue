@@ -138,7 +138,7 @@ export default {
   methods: {
     addCita(){
       if(this.paciente != "" && this.citaSeleccionada != "" && this.valor != ""){
-        this.$store.dispatch('ASIGNAR_CITA',{paciente: this.paciente, cita: this.citaSeleccionada, estado: "Asignada"})
+        this.$store.dispatch('ASIGNAR_CITA',{paciente: this.paciente, cita: this.citaSeleccionada, estado: "Asignada", valor: this.valor})
         $('#modal2').modal('hide');
         this.paciente = ""
         this.citaSeleccionada = ""
