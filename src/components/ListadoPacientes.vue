@@ -206,4 +206,10 @@ a {
 .black-background {background-color:#4d4d4d;}
 .white {color:#ffffff;}
 
+
+label,input,textarea,button{
+
+   font-size: 25px;
+}
+
 </style>

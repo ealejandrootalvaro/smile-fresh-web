@@ -10,7 +10,7 @@
   <full-calendar :events="fcEvents" v-on:dayClick="onDayMethod" v-on:eventClick="onEventMethod" locale="zh"></full-calendar>
 
 
-      <div class="modal fade" id="modal2">
+      <div class="modal fade" id="modal2" style="font-family: 'Romanesco';font-size: 30px;">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -18,18 +18,18 @@
                        <span aria-hidden="true">&times;</span>
                        <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title">Agendar Cita</h4>
+                <h4 class="modal-title" style="font-family: 'Romanesco';font-size: 30px;">Agendar Cita</h4>
 
               </div>
 
               <div class="modal-body">
-                 <h5 class="text-left" >Ingrese la siguiente informacion para el  registro de una nueva cita.</h5>
+                 <h5 class="text-left" style="font-family: 'Romanesco';font-size: 30px;" >Ingrese la siguiente informacion para el  registro de una nueva cita.</h5>
 
 
-                  <form role="form" id="myForm">
+                  <form role="form" id="myForm" style="font-family: 'Romanesco';font-size: 30px;">
                   <div class="form-group">
                     <label for="cedulaUsuario">Usuario</label>
-                      <select class="form-control" name="" v-model="paciente">
+                      <select class="form-control" name="" v-model="paciente" style="font-family: 'Romanesco';font-size: 20px;">
                         <option v-for="paciente in pacientes" v-bind:value="paciente.id">{{paciente.nombre +" "+paciente.apellido}}</option>
                       </select>
                   </div>
@@ -69,7 +69,7 @@
 
 
 
-                  <input type="reset" value="Limpiar Campos" class="btn btn-primary black-background white" >
+                  <input type="reset" value="Limpiar Campos" class="btn btn-primary black-background white" style="font-family: 'Romanesco';font-size: 30px;">
 
 
                 </form>
@@ -81,10 +81,10 @@
               <div class="modal-footer">
 
                 <button type="button" class="btn btn-primary black-background white"
-                        data-dismiss="modal">
+                        data-dismiss="modal" style="font-family: 'Romanesco';font-size: 30px;">
                             Cerrar
                 </button>
-                <button @click="addCita" class="btn btn-primary black-background white">
+                <button @click="addCita" class="btn btn-primary black-background white" style="font-family: 'Romanesco';font-size: 30px;">
 
                              Aceptar
                 </button>

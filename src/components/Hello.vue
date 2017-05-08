@@ -1,12 +1,16 @@
 <template>
-  <div class="hello">
-    Contamos con los mejores profesionales
+   <div class="hello">
+   
     <div class="container">
   
-        
-  <img src="https://www.webicina.com/uploads/topic/images/26/2445f97f4f3038de29b0dc5201281a3a.jpg" style="width:1100px;height:700px;"   > 
+       <p>Contamos con los mejores profesionales para ofrecerle al usuario un servicio de la mas alta calidad</p>
+<img src="http://www.venezuelanprofiles.com/wp-content/uploads/2016/05/odontologos.jpg" style="width:1100px;height:700px;"   >  
+  
 </div>
-  </div>
+  </div> 
+
+
+
 </template>
 
 <script>
@@ -22,8 +26,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 h1, h2 {
   font-weight: normal;
+  font-family: 'Romanesco';font-size: 22px;
 }
 
 ul {
@@ -38,5 +44,15 @@ li {
 
 a {
   color: #42b983;
+}
+
+
+p {
+color: #000;
+font-size: 40px;
+font-family: 'Romanesco';font-size: 30px;
+line-height: 24px;
+letter-spacing: 2px;
+margin-top: 15px;
 }
 </style>

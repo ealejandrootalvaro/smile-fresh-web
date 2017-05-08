@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <h2 class="text" >Ingrese la siguiente informacion referente al registro de una consulta actual.</h2>
-    <p>[Falta:Seleccionar el paciente de la consulta ]</p>
-    <p>[Falta:Acceder a Historia clinica de ese paciente]</p>
+    <h2 class="text" >Registro de una consulta actual.</h2>
+    
     
     
                   <form role="form" id="formz" style="text-align: left;">
@@ -112,6 +111,7 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  font-size: 40px;
 }
 
 ul {
@@ -126,6 +126,12 @@ li {
 
 a {
   color: #42b983;
+}
+
+
+label,input,textarea,button{
+
+   font-size: 25px;
 }
 
 .black-background {background-color:#4d4d4d;}
