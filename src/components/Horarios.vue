@@ -34,9 +34,9 @@
 
 
 
-      <button href="#modal1" class="btn btn-primary black-background white" data-toggle="modal" style="font-family: 'Romanesco';font-size: 30px;">Nuevo Horario</button>
+      <button href="#modal1" class="btn btn-primary black-background white" data-toggle="modal" style="font-family: 'Times New Roman';font-size: 20px;">Nuevo Horario</button>
 
-      <button  @click="eliminar" class="btn btn-primary black-background white" style="font-family: 'Romanesco';font-size: 30px;">Eliminar Horarios Seleccionados</button>
+      <button  @click="eliminar" class="btn btn-primary black-background white" style="font-family: 'Times New Roman';font-size: 20px;">Eliminar Horarios Seleccionados</button>
 
 
       <div class="modal fade" id="modal1">
@@ -52,7 +52,7 @@
             </div>
 
             <div class="modal-body">
-              <h5 class="text-left " style="font-family: 'Romanesco';font-size: 25px;" >Ingrese la siguiente informacion referente al registro de un nuevo horario para un medico.</h5>
+              <h5 class="text-left " style="font-family: 'Times New Roman';font-size: 20px;" >Ingrese la siguiente informacion referente al registro de un nuevo horario para un medico:</h5>
 
 
 

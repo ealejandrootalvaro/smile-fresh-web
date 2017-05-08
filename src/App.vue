@@ -151,7 +151,7 @@ export default {
 
 <style scoped>
 #app {
-  font-family: 'Romanesco';font-size: 22px;
+  font-family: 'Times New Roman';font-size: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

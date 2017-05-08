@@ -50,7 +50,7 @@ a {
 p {
 color: #000;
 font-size: 40px;
-font-family: 'Romanesco';font-size: 30px;
+font-family: 'Times New Roman';font-size: 20px;
 line-height: 24px;
 letter-spacing: 2px;
 margin-top: 15px;

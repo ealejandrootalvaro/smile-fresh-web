@@ -44,12 +44,12 @@
                        <span aria-hidden="true">&times;</span>
                        <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title">Ingresar Nuevo Paciente</h4>
+                <h4 class="modal-title" style="font-family: 'Times New Roman';font-size: 40px;" >Ingresar Nuevo Paciente</h4>
 
               </div>
 
               <div class="modal-body">
-                 <h5 class="text-left" >Ingrese la siguiente informacion referente al registro de un nuevo Paciente.</h5>
+                 <h5 class="text-left" style="font-family: 'Times New Roman';font-size: 20px;">Ingrese la siguiente informacion referente al registro de un nuevo Paciente.</h5>
 
 
                  <form role="form" id="myForm" >
@@ -286,7 +286,7 @@ a {
 
 label,input,textarea,button{
 
-   font-size: 25px;
+   font-size: 20px;
 }
 
 </style>
