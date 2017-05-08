@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 const state = {
    pacientes: [
-   {id: 2,nombre:"camilo",apellido:"melasuda",direcion:"p.sherman,callewallabey 52 sydney", telefono:"555",ocupacion:"doctor, que ironia",nacimiento:"1999-08-12",edad:"18",genero:"F"}
+
    ],
 
   doctores: [],
@@ -17,8 +17,8 @@ const state = {
   ],
 
   citas:[
-
-
+  {id:25,fecha:"2017-03-02" ,hora:"59:40", doctor:"1", paciente:"pedrito", duracion:"30", valor:"500" ,estado:"Finalizada"},
+  {id:26,fecha:"2017-03-01" ,hora:"59:40", doctor:"1", paciente:"pedrito", duracion:"30", valor:"500" ,estado:"Finalizada"}
   ],
 
   historias: [ {fecha:"2017-03-02",doctor:"40",paciente: "73",descripcion:"el chico llega con extrema verguenza  cubriendose el pecho al parecer un golpe cortopunzate por parte de su pareja la causa",diagnostico:"hemorrgia en el pezon"}],
@@ -53,8 +53,7 @@ const mutations = {
   },
 
   DELETE_DOCTOR (state,id){
-    console.log("antes")
-    console.log(state.doctores)
+
     var index =-1;
     for (var i = 0; i < state.doctores.length; i++) {
       if(state.doctores[i].id == id){
@@ -67,8 +66,7 @@ const mutations = {
       state.doctores.splice(index,1)
     }
 
-    console.log("despues")
-    console.log(state.doctores)
+
   },
 
   ADD_CONSULTA(state,consulta){
@@ -110,6 +108,10 @@ const mutations = {
     state.historias = historias;
   },
 
+  ADD_HISTORIA(state,historia){
+    state.historias.push(historia);
+  },
+
   /* OPERACIONES HORARIO */
 
   SET_HORARIOS(state,horarios){
@@ -132,6 +134,29 @@ const mutations = {
     if(index != -1){
       state.horarios.splice(index,1)
     }
+  },
+
+  ADD_PACIENTE(state,paciente){
+    state.pacientes.push(paciente)
+  },
+
+  DELETE_PACIENTE(state,id){
+    var index =-1;
+    for (var i = 0; i < state.pacientes.length; i++) {
+      if(state.pacientes[i].id == id){
+        index = i;
+        break;
+      }
+    }
+
+    if(index != -1){
+      state.pacientes.splice(index,1)
+    }
+  },
+
+  SET_PACIENTES(state,pacientes){
+    console.log(pacientes)
+    state.pacientes = pacientes
   }
 
 }
@@ -168,8 +193,6 @@ const actions = {
     })
   },
 
-
-
   LOAD_PACIENTES: function({commit}){
     axios.get('http://localhost:3888/api/paciente').then((response)=>{
       commit('SET_PACIENTES',response.data)
@@ -177,6 +200,25 @@ const actions = {
       console.log(err)
     })
   },
+
+  ADD_PACIENTE: function({commit}, paciente){
+    axios.post('http://localhost:3888/api/paciente',paciente).then((response)=>{
+      paciente.id = response.data
+      commit('ADD_PACIENTE',paciente)
+    }, (err) => {
+      console.log(err)
+    })
+  },
+
+
+  DELETE_PACIENTE: function({commit}, paciente){
+    axios.delete('http://localhost:3888/api/paciente/'+paciente).then((response)=>{
+      commit("DELETE_PACIENTE",paciente)
+    }, (err) => {
+      console.log(err)
+    })
+  },
+
 
   LOAD_CITAS: function({commit}){
     axios.get('http://localhost:3888/api/cita').then((response)=>{
@@ -205,6 +247,15 @@ const actions = {
     })
   },
 
+  ADD_HISTORIA: function({commit},historia){
+    axios.get("http://localhost:3888/api/historia").then((response)=>{
+      historia.id = response.data.id
+      commit('ADD_HISTORIA',historia)
+    }, (err)=>{
+      console.log(err)
+    })
+  },
+
   LOAD_HORARIOS: function({commit}){
     axios.get('http://localhost:3888/api/horario').then((response)=>{
       commit('SET_HORARIOS',response.data)
@@ -217,27 +268,30 @@ const actions = {
 
     var dias = {Lunes: 1, Martes: 2, Miercoles: 3, Jueves: 4, Viernes: 5, Sabado: 6, Domingo: 0}
     var currentDate = moment()
-    var fecha;
-    var cita;
+    var fecha = moment().day(dias[horario.dia]);
     axios.post('http://localhost:3888/api/horario',horario).then((response)=>{
       horario.idHorario = response.data.id
       horario.nombre = response.data.nombre
       horario.apellido = response.data.apellido
-
+      var i=0;
       for (var i = 0; i < 30; i++) {
-        fecha = currentDate.day(dias[horario.dia]+i*7)
+        if(i!=0){
+          fecha = fecha.add(7,"days");
+        }
+        (function(date){
 
-        cita = {nombre: response.data.nombre, apellido: response.data.apellido, estado: "Disponible",fecha: fecha.format("DD-MM-YYYY"), hora: horario.inicio, duracion: "30", doctor: horario.doctor}
-        axios.post('http://localhost:3888/api/cita',cita).then((response)=>{
-          console.log(response)
-          cita.idCita = response.data.id
-          commit('ADD_CITA',cita)
-        }, (err) => {
-          console.log(err)
-        })
+          console.log(date)
+          var cita = {nombre: response.data.nombre, apellido: response.data.apellido, estado: "Disponible",fecha: date.format("MM-DD-YYYY"), hora: horario.inicio, duracion: "30", doctor: horario.doctor}
+          axios.post('http://localhost:3888/api/cita',cita).then((response)=>{
 
+            cita.idCita = response.data.id;
+            commit('ADD_CITA',cita);
+
+          }, (err) => {
+            console.log(err)
+          })
+        }(fecha))
       }
-
       commit('ADD_HORARIO',horario)
     }, (err) => {
       console.log(err)

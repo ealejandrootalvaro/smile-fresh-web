@@ -87,7 +87,10 @@ restapi.get('/api/paciente', function(req,res){
 
 /* Insertar pacientes */
 restapi.post('/api/paciente', function(req,res){
-  PACIENTE.insertPaciente(req.body)
+  PACIENTE.insertPaciente(function(data){
+    res.json(data)
+    res.end()
+  },req.body)
   res.end()
 })
 
@@ -97,6 +100,11 @@ restapi.get('api/paciente/:id', function(req,res){
     res.json(data)
     res.end()
   },req.params.id)
+})
+
+restapi.delete('api/paciente/:id',function(req,res){
+  PACIENTE.deletePaciente(req.params.id)
+  res.end()
 })
 
 
@@ -120,7 +128,10 @@ restapi.get('/api/historia/paciente/:id',function(req,res){
 
 /* Insertar nueva historia  */
 restapi.post('/api/historia',function(req,res){
-  HISTORIA.insertHistoria(req.body)
+  HISTORIA.insertHistoria(function(data){
+    res.json(data)
+    res.end()
+  },req.body)
   res.end()
 })
 
@@ -131,6 +142,17 @@ restapi.get('/api/historia/:id',function(req,res){
     res.end()
   },req.params.id)
 })
+
+restapi.delete('/api/historia/:id',function(req,res){
+  HISTORIA.deleteHistoria(req.params.id)
+  res.end()
+})
+
+restapi.delete('/api/historia',function(req,res){
+  HISTORIA.deleteAllHistorias()
+  res.end()
+})
+
 
 
 // ****** API CITAS ****** //
