@@ -108,6 +108,10 @@ const mutations = {
     state.historias = historias;
   },
 
+  ADD_HISTORIA(state,historia){
+    state.historias.push(historia);
+  },
+
   /* OPERACIONES HORARIO */
 
   SET_HORARIOS(state,horarios){
@@ -189,8 +193,6 @@ const actions = {
     })
   },
 
-
-
   LOAD_PACIENTES: function({commit}){
     axios.get('http://localhost:3888/api/paciente').then((response)=>{
       commit('SET_PACIENTES',response.data)
@@ -245,6 +247,15 @@ const actions = {
     })
   },
 
+  ADD_HISTORIA: function({commit},historia){
+    axios.get("http://localhost:3888/api/historia").then((response)=>{
+      historia.id = response.data.id
+      commit('ADD_HISTORIA',historia)
+    }, (err)=>{
+      console.log(err)
+    })
+  },
+
   LOAD_HORARIOS: function({commit}){
     axios.get('http://localhost:3888/api/horario').then((response)=>{
       commit('SET_HORARIOS',response.data)
@@ -258,24 +269,15 @@ const actions = {
     var dias = {Lunes: 1, Martes: 2, Miercoles: 3, Jueves: 4, Viernes: 5, Sabado: 6, Domingo: 0}
     var currentDate = moment()
     var fecha = moment().day(dias[horario.dia]);
-
-
-
-
     axios.post('http://localhost:3888/api/horario',horario).then((response)=>{
       horario.idHorario = response.data.id
       horario.nombre = response.data.nombre
       horario.apellido = response.data.apellido
-
       var i=0;
-
-
       for (var i = 0; i < 30; i++) {
         if(i!=0){
           fecha = fecha.add(7,"days");
         }
-
-
         (function(date){
 
           console.log(date)
@@ -290,11 +292,6 @@ const actions = {
           })
         }(fecha))
       }
-
-
-
-
-
       commit('ADD_HORARIO',horario)
     }, (err) => {
       console.log(err)

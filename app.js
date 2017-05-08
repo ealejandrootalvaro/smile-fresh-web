@@ -128,7 +128,10 @@ restapi.get('/api/historia/paciente/:id',function(req,res){
 
 /* Insertar nueva historia  */
 restapi.post('/api/historia',function(req,res){
-  HISTORIA.insertHistoria(req.body)
+  HISTORIA.insertHistoria(function(data){
+    res.json(data)
+    res.end()
+  },req.body)
   res.end()
 })
 
@@ -139,6 +142,17 @@ restapi.get('/api/historia/:id',function(req,res){
     res.end()
   },req.params.id)
 })
+
+restapi.delete('/api/historia/:id',function(req,res){
+  HISTORIA.deleteHistoria(req.params.id)
+  res.end()
+})
+
+restapi.delete('/api/historia',function(req,res){
+  HISTORIA.deleteAllHistorias()
+  res.end()
+})
+
 
 
 // ****** API CITAS ****** //

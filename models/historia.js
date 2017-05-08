@@ -7,9 +7,15 @@ db.serialize(function() {
 
 });
 
-HISTORIA.insertHistoria = function(historia){
+HISTORIA.insertHistoria = function(callback,historia){
   var stmt = db.prepare("INSERT INTO HISTORIA VALUES (?,?,?,?,?)");
-  stmt.run(null,historia.date,historia.doctor,historia.paciente,historia.descripcion, historia.diagnostico);
+  stmt.run(null,historia.date,historia.doctor,historia.paciente,historia.descripcion, historia.diagnostico,function(err){
+    if(err){
+      throw err
+    }else{
+      callback({id: this.lastID})
+    }
+  });
   stmt.finalize();
 }
 
@@ -41,6 +47,14 @@ HISTORIA.getHistoria = function(callback,id){
       callback(null,rows)
     }
   })
+}
+
+HISTORIA.deleteHistoria = function(id){
+  db.run("DELETE FROM historia WHERE id = ?",[id])
+}
+
+HISTORIA.deleteAllHistorias = function(){
+  db.run("DELETE FROM historia")
 }
 
 module.exports = HISTORIA;
