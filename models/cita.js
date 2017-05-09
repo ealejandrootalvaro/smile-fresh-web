@@ -71,6 +71,16 @@ CITA.editCita = function(idCita,idPaciente,estado,cita){
   })
 }
 
+CITA.getRecaudoPorFechas = function(callback,fechas){
+  db.all("SELECT doctor, SUM(valor) as recaudo FROM cita WHERE fecha >= ? AND fecha <= ? AND estado = 'Cerrada' GROUP BY doctor",[fechas.inicio,fechas.fin],function(err,rows){
+    if(err){
+      throw err;
+    }else{
+      callback(rows)
+    }
+  })
+}
+
 CITA.editEstado = function(idCita,estado){
   db.run("UPDATE cita SET estado = ? WHERE id = ?",[estado,idCita])
 }

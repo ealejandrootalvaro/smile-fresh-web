@@ -209,6 +209,13 @@ restapi.put('/api/cita/:idCita/estado/:estado',function(req,res){
   res.end()
 })
 
+restapi.post('/api/cita/recaudo/fechas',function(req,res){
+  CITA.getRecaudoPorFechas(function(data){
+    res.json(data)
+    res.end()
+  },req.body)
+})
+
 
 // ***** API HORARIOS ***** //
 

@@ -58,7 +58,7 @@
                   <td >{{medico.fecha}}</td>
                   <td >{{medico.hora}}</td>
                   <td >{{medico.duracion + " Minutos"}}</td>
-                  <td ><input v-on:click="seleccionarCita(medico)" type="checkbox" name="seleccionar"></td>
+                  <td ><input v-on:click="seleccionarCita(medico)" type="checkbox" v-bind:checked="citaSeleccionada!=''" name="seleccionar"></td>
 
                 </tr>
 
@@ -71,7 +71,7 @@
                   </div>
                   </div>
 
-              
+
 
                 </form>
 
@@ -157,7 +157,7 @@ export default {
     onDayMethod(day, jsEvent){
       console.log(moment())
       this.fechaSeleccionada = moment(day).format("MM-DD-YYYY")
-
+      this.citaSeleccionada = ""
       $('#modal2').modal();
 
            //alert('a day has been clicked!');
