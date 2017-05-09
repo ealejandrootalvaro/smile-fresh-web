@@ -1,5 +1,25 @@
 <template>
    <div class="container">
+     <div class="">
+       <label for="">Estado</label>
+       <select class="" name="" v-model="estado">
+         <option value="Disponible">Disponible</option>
+         <option value="Agendada">Agendada</option>
+         <option value="Cerrada">Cerrada</option>
+       </select>
+     </div>
+     <div class="">
+       <label for="">Mes</label>
+       <select class="" name="" v-model="mes">
+         <option v-bind:value="mes.id" v-for="mes in meses">{{mes.mes}}</option>
+       </select>
+     </div>
+     <div class="">
+       <label for="">Año</label>
+       <select class="" name="" v-model="year">
+         <option v-bind:value="year" v-for="year in years">{{year}}</option>
+       </select>
+     </div>
     <table class="table table-striped">
         <thead>
           <tr>
@@ -37,6 +57,9 @@
 </template>
 
 <script>
+
+import moment from 'moment'
+
 export default {
   data () {
     return {
@@ -47,7 +70,12 @@ export default {
        paciente:'',
        duracion:'',
        valor:'',
-       estado:''
+       estado:'',
+       mes: '4',
+       year:'2017',
+       years: [2010,2011,2012,2013,2014,2015,2016,2017],
+       resultados: [],
+       meses: [{id: 0,mes:"Enero"},{id:1,mes:"Febrero"},{id:2,mes:"Marzo"},{id:3,mes:"Abril"},{id:4,mes:"Mayo"},{id:5,mes:"Junio"},{id:6,mes:"Julio"},{id:7,mes:"Agosto"},{id:8,mes:"Septiembre"},{id:9,mes:"Octubre"},{id:10,mes:"Noviembre"},{id:11,mes:"Diciembre"}]
 
 
     }
@@ -55,9 +83,23 @@ export default {
 
   computed: {
         citas(){
-      var arreglo= this.$store.state.citas
-      return arreglo
-    }
+
+          var self = this;
+
+          return this.$store.state.citas.filter(function(item){
+            console.log(moment(item.fecha).format('YYYY'))
+            var bandera = true
+            if(self.estado && self.estado != item.estado){
+              return false
+            }else if (self.mes && self.mes != moment(item.fecha).format('M')-1) {
+              return false
+            }else if (self.year && self.year != moment(item.fecha).format('YYYY')){
+              return false
+            }
+            return bandera
+          })
+
+        }
 
   },
 

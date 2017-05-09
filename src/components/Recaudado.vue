@@ -17,8 +17,8 @@
     <table class="table table-striped" v-show="resultados.length != 0">
         <thead>
           <tr>
-
-            <th>Doctor</th>
+            <th>Nombre Doctor</th>
+            <th>Apellido Doctor</th>
             <th>Recaudo</th>
           </tr>
         </thead>
@@ -26,7 +26,8 @@
       <tbody class="text-left" >
         <tr v-for="cita in resultados" >
 
-          <td >{{cita.doctor}}</td>
+          <td >{{cita.nombre}}</td>
+          <td>{{cita.apellido}}</td>
           <td >{{cita.recaudo}}</td>
         </tr>
       </tbody>

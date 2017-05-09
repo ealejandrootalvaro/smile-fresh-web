@@ -72,7 +72,7 @@ CITA.editCita = function(idCita,idPaciente,estado,cita){
 }
 
 CITA.getRecaudoPorFechas = function(callback,fechas){
-  db.all("SELECT doctor, SUM(valor) as recaudo FROM cita WHERE fecha >= ? AND fecha <= ? AND estado = 'Cerrada' GROUP BY doctor",[fechas.inicio,fechas.fin],function(err,rows){
+  db.all("SELECT doctor.nombre as nombre, doctor.apellido as apellido, SUM(cita.valor) as recaudo FROM cita INNER JOIN doctor ON doctor.id = cita.doctor WHERE fecha >= ? AND fecha <= ? AND estado = 'Cerrada' GROUP BY doctor",[fechas.inicio,fechas.fin],function(err,rows){
     if(err){
       throw err;
     }else{
