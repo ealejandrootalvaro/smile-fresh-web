@@ -44,7 +44,7 @@ CITA.deleteCitas = function(callback){
 }
 
 CITA.getCitas = function(callback){
-  db.all("SELECT cita.id as idCita,* FROM cita INNER JOIN doctor ON doctor.id = cita.doctor ORDER BY fecha",function(err,rows){
+  db.all("SELECT cita.id as idCita, doctor.nombre as nombreDoctor, paciente.nombre as nombrePaciente, * FROM cita INNER JOIN doctor ON doctor.id = cita.doctor LEFT JOIN paciente ON paciente.id = cita.paciente ORDER BY fecha",function(err,rows){
     if(err){
       throw err;
     }else{

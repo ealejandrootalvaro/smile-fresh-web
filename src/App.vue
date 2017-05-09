@@ -89,7 +89,7 @@
 
           <router-link to="/ListadoPacientes" active-class="active" tag="li" exact><a href="#">Listado Pacientes</a></router-link>
 
-           <router-link to="/HistoriaClinica" active-class="active" tag="li" exact><a href="#">Historia clinica </a></router-link>
+
 
 
            <router-link to="/Citas" active-class="active" tag="li" exact><a href="#">Citas</a></router-link>
@@ -98,7 +98,7 @@
             <ul class="dropdown-menu">
 
               <router-link to="/recaudado" active-class="active" tag="li" exact><a href="#" style="font-family: 'Romanesco';font-size: 30px;">Recaudado</a></router-link>
-              <router-link to="/citasPorMes" active-class="active" tag="li" exact><a href="#" style="font-family: 'Romanesco';font-size: 30px;">Citas</a></router-link>
+
 
             </ul>
             </li>

@@ -4,7 +4,7 @@
        <label for="">Estado</label>
        <select class="" name="" v-model="estado">
          <option value="Disponible">Disponible</option>
-         <option value="Agendada">Agendada</option>
+         <option value="Asignada">Asignada</option>
          <option value="Cerrada">Cerrada</option>
        </select>
      </div>
@@ -38,8 +38,8 @@
 
           <td >{{cita.fecha}}</td>
           <td >{{cita.hora}}</td>
-          <td >{{cita.doctor}}</td>
-          <td >{{cita.paciente}}</td>
+          <td >{{cita.nombreDoctor}}</td>
+          <td >{{cita.nombrePaciente}}</td>
           <td >{{cita.duracion}}</td>
           <td >{{cita.valor}}</td>
           <td >{{cita.estado}}</td>
