@@ -10,10 +10,10 @@
         </thead> 
 
       <tbody class="text-left" >
-        <tr v-for="recaudo in recaudos">
-          <td >{{recaudo.mes}}</td>
-          <td >{{recaudo.doctor}}</td>
-          <td >{{recaudo.valor}}</td>
+        <tr v-for="cita in citasMes">
+          <td >{{cita.fecha}}</td>
+          <td >{{cita.doctor}}</td>
+          <td >{{cita.valor}}</td>
  
      
      
@@ -48,7 +48,20 @@ export default {
   },
   
   computed: {
+    citas(){
+      return this.$store.state.citas
+    },
    
+      citasMes(){
+      
+      var ordenados=this.$store.state.citas
+
+
+      
+      return ordenados
+      console.log(ordenados)
+     
+    }
   },
 
  methods:{
