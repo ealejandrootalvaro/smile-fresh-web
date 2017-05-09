@@ -101,6 +101,8 @@ const mutations = {
       state.citas[index].paciente = cita.paciente;
       state.citas[index].estado = cita.estado;
     }
+
+    location.reload()
   },
 
   FINALIZAR_CITA(state,idCita){
@@ -244,12 +246,14 @@ const actions = {
   },
 
   ASIGNAR_CITA: function({commit},data){
+    var router = data.router
     var cita = data.cita
     cita.valor = data.valor
     cita.paciente = data.paciente
     cita.estado = data.estado
     axios.put("http://localhost:3888/api/cita/"+cita.idCita+"/paciente/"+cita.paciente,cita).then((response)=>{
       commit('EDIT_CITA',cita)
+      router.push("/")
     }, (err) => {
       console.log(err)
     })
